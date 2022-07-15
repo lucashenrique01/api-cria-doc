@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RdG7qyDZFN41ht6fPlAc8eovAaq8CM5tJ2I92vpGc1QQABQGEN/CtAbWGs+LQUcDzeVK8ZOH6tuUeAQrbbLNxA==",
+  "dgSpecHash": "mrgj16A6hZpK+wA36Cg0jDBQM6+sAJ3+Xf8cpDDPPCfjLcudRciJBXWm4lLSzFG05Jz1w2bz/5uU8v8mnXBoAw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Buiu\\Desktop\\api-cria-doc\\api-cria-doc.csproj",
+  "projectFilePath": "C:\\Users\\Buiu\\Desktop\\POC-SAGA\\api-cria-doc\\api-cria-doc.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Buiu\\.nuget\\packages\\confluent.kafka\\1.4.0\\confluent.kafka.1.4.0.nupkg.sha512",
     "C:\\Users\\Buiu\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",

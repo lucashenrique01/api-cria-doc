@@ -11,19 +11,25 @@ namespace api_cria_doc.Contexts
         public string GetHostMongo() { 
             string host; 
             if (Environment.GetEnvironmentVariable("MONGO_HOST") != null) 
-            { host = Environment.GetEnvironmentVariable("MONGO_HOST"); } 
-            else { 
-                return host = "mongodb://localhost:27017"; 
-                } 
-            return host; 
+            { 
+               return host = Environment.GetEnvironmentVariable("MONGO_HOST"); 
+            }
+            return host = "mongodb://localhost:27017";
         }
         public string GetDatabase() { 
             string database; 
             if (Environment.GetEnvironmentVariable("MONGO_DATABASE") != null) { 
-                database = Environment.GetEnvironmentVariable("MONGO_DATABASE"); 
-            } else { return database = "cria-doc"; 
-            } 
-            return database; 
+               return database = Environment.GetEnvironmentVariable("MONGO_DATABASE"); 
+            }  
+            return database = "create-doc";
+        }
+
+        public string GetCollection(){
+            string collection;
+            if(Environment.GetEnvironmentVariable("MONGO_COLLECTION") != null){
+                return collection = Environment.GetEnvironmentVariable("MONGO_COLLECTION");
+            }
+            return collection = "documents";
         }
     }
 }

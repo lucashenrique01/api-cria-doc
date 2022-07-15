@@ -1,5 +1,4 @@
 using Confluent.Kafka;
-using api_cria_doc.Models;
 using System.Net;
 
 namespace api_cria_doc.Contexts
@@ -10,12 +9,19 @@ namespace api_cria_doc.Contexts
             if(Environment.GetEnvironmentVariable("KAFKA_TOPIC") != null){
                 return Environment.GetEnvironmentVariable("KAFKA_TOPIC");
             }
-            return "br.com.example.correctTopic";
+            return "br.com.example.document.created";
+        }
+
+        public string GetBroker(){
+            if(Environment.GetEnvironmentVariable("BROKER_HOST") != null){
+                return Environment.GetEnvironmentVariable("BROKER_HOST");
+            }
+            return "localhost:9092";
         }
 
         public ProducerConfig ConfigProducer(){
             var config = new ProducerConfig {
-            BootstrapServers = "localhost:9092",            
+            BootstrapServers = GetBroker(),            
             ClientId = Dns.GetHostName(),            
             };
             return config;
@@ -23,7 +29,7 @@ namespace api_cria_doc.Contexts
         public ConsumerConfig configConsumer(){
             var config = new ConsumerConfig            
             {                
-                BootstrapServers = "localhost:9092",                
+                BootstrapServers = GetBroker(),                
                 GroupId = "foo",                
                 AutoOffsetReset = AutoOffsetReset.Earliest            
             }; 

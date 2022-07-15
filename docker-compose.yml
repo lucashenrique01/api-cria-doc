@@ -1,4 +1,5 @@
-version: '2'
+version: '3.4'
+
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.0.1
@@ -32,7 +33,6 @@ services:
       KAFKA_JMX_PORT: 9101
       KAFKA_JMX_HOSTNAME: localhost
 
-
   schema-registry:
     image: confluentinc/cp-schema-registry:7.0.1
     hostname: schema-registry
@@ -45,7 +45,7 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'broker:29092'
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
-
+  
   api-eventos:
     image: gabriel94dantas/api-eventos-image:latest
     depends_on:
@@ -56,9 +56,89 @@ services:
       - 80:80
     environment:
       - BROKER_HOST=broker:29092
- 
 
-networks: 
-  default: 
-    external: 
-      name: kafka_confluent_network
+  cache:
+    image: redis
+    hostname: cache
+    container_name: cache
+    restart: always
+    ports:
+      - '6379:6379'
+  
+  db:
+    image: mysql:8.0
+    container_name: mysql_signature   
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: poc_saga_signature
+    ports:
+     - '3306:3306'
+
+  api-signature-doc:    
+    image: lucashenrique01/api-signature-doc:1.3      
+    depends_on:  
+      - db
+      - cache
+      - broker
+    container_name: api-signature-doc
+    hostname: api-signature-doc
+    environment:
+      - BROKER_HOST=broker:29092
+    ports:
+     - '8080:8080'
+  
+  api-orchestrator:    
+    image: lucashenrique01/api-orchestrator:1.2
+    depends_on:  
+      - db
+      - cache
+      - broker
+    container_name: api-orchestrator
+    hostname: api-orchestrator
+    environment:
+      - BROKER_HOST=broker:29092
+      - REDIS_HOST=redis://cache:6379
+    ports:
+     - '8090:8090'
+
+  api-create-doc:
+     image: lucashenrique01/api-create-doc:1.0  
+     container_name: api-create-doc
+     hostname: api-create-doc
+     environment:
+       - MONGO_HOST=mongodb://mongo:27017
+       - BROKER_HOST=broker:29092
+  
+  mongo:
+    image: mongo
+    hostname: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+  
+  flink_transformer:
+    image: gabriel94dantas/flink-runner-poc-kappa:1.2
+    depends_on:
+      - broker
+      - mongo
+      - api-eventos
+      - zookeeper
+      - schema-registry
+    container_name: flink_transformer
+    hostname: flink_transformer
+    environment:
+      - BROKER_HOST=broker:29092
+      - BROKER_HOST_CLOUDERA=broker:29092
+      - MONGO_HOST=mongodb://mongo:27017
+
+  apl-api-email-mocked:
+    image: gabriel94dantas/poc-saga-email-mocked:1.0
+    depends_on:
+      - broker
+    hostname: apl-api-email-mocked
+    container_name: apl-api-email-mocked
+    ports:
+      - 88:88
+    environment:
+      - BROKER_HOST=broker:29092

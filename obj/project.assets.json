@@ -869,11 +869,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Buiu\\Desktop\\api-cria-doc\\api-cria-doc.csproj",
+      "projectUniqueName": "C:\\Users\\Buiu\\Desktop\\POC-SAGA\\api-cria-doc\\api-cria-doc.csproj",
       "projectName": "api-cria-doc",
-      "projectPath": "C:\\Users\\Buiu\\Desktop\\api-cria-doc\\api-cria-doc.csproj",
+      "projectPath": "C:\\Users\\Buiu\\Desktop\\POC-SAGA\\api-cria-doc\\api-cria-doc.csproj",
       "packagesPath": "C:\\Users\\Buiu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Buiu\\Desktop\\api-cria-doc\\obj\\",
+      "outputPath": "C:\\Users\\Buiu\\Desktop\\POC-SAGA\\api-cria-doc\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Buiu\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -926,9 +926,6 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
